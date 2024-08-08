@@ -1,0 +1,16 @@
+{
+  "name": "unit4.careersimulation",
+  "version": "1.0.0",
+  "description": "## Overview This is the Unit 4 Career Simulation whhich builds an API from scratch and prepares it for front-end development. Below is the database schema that we will refer to in order to build the API.",
+  "main": "index.js",
+  "scripts": {
+    "seed": "node ./prisma/seed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.17.0",
+    "prisma": "^5.17.0"
+  }
+}
