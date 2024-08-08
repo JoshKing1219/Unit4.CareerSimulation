@@ -4,13 +4,19 @@
   "description": "## Overview This is the Unit 4 Career Simulation whhich builds an API from scratch and prepares it for front-end development. Below is the database schema that we will refer to in order to build the API.",
   "main": "index.js",
   "scripts": {
-    "seed": "node ./prisma/seed.js"
+    "seed": "node ./prisma/seed.js",
+    "start": "node server/index.js",
+    "start:dev": "nodemon server/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "express": "^4.19.2",
     "prisma": "^5.17.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
