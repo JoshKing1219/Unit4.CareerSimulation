@@ -2,6 +2,8 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { createUser, getByUsername } = require("../db/users");
+const { verifyUser } = require("./utilities");
+const client = require("../db/index");
 
 const authRouter = express.Router();
 
@@ -28,7 +30,7 @@ authRouter.post("/register", async (req, res) => {
     //hash password
     const hashedPassword = await bcrypt.hash(
       password,
-      parseInt(process.env.SALT) || 42
+      parseInt(process.env.SALT) || 7
     );
 
     //create user in db
@@ -77,6 +79,26 @@ authRouter.post("/login", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(500).send({ error, message: "Could not login the user." });
+  }
+});
+
+authRouter.get("/me", verifyUser, async (req, res) => {
+  try {
+    console.log(req.user_id);
+
+    const userInfo = await client.users.findUnique({
+      where: {
+        id: req.user_id,
+      },
+      include: {
+        reviews: true,
+        comments: true,
+      },
+    });
+    res.send(userInfo);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
   }
 });
 
