@@ -8,6 +8,7 @@ function verifyUser(req, res, next) {
   }
 
   try {
+    console.log(auth);
     const { id } = jwt.verify(auth, process.env.JWT || "super duper secret");
     req.user_id = id;
     next();
