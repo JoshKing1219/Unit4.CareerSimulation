@@ -23,7 +23,7 @@ theoryRouter.get("/:id", async (req, res, next) => {
         id: req.params.id,
       },
       include: {
-        reviews: { include: { comments: true } },
+        reviews: { include: { comments: true, user: true } },
       },
     });
 
@@ -52,55 +52,47 @@ theoryRouter.post("/:id/reviews", verifyUser, async (req, res, next) => {
     console.log(error);
     res.status(500).send({
       error,
-      message: "Could not get the reviews for thhe chosen theory",
+      message: "Could not get the reviews for the chosen theory",
     });
   }
 });
 
-theoryRouter.put(
-  "/:theory_id/reviews/:id",
-  verifyUser,
-  async (req, res, next) => {
-    try {
-      const updateReview = await prisma.reviews.update({
-        where: {
-          id: req.params.id,
-        },
-        data: {
-          ...req.body,
-        },
-      });
+theoryRouter.put("/reviews/:id", verifyUser, async (req, res, next) => {
+  try {
+    const updateReview = await prisma.reviews.update({
+      where: {
+        id: req.params.id,
+      },
+      data: {
+        ...req.body,
+      },
+    });
 
-      res.send(updateReview);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        error,
-        message: "Could not edit your review",
-      });
-    }
+    res.send(updateReview);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error,
+      message: "Could not edit your review",
+    });
   }
-);
+});
 
-theoryRouter.delete(
-  "/:theory_id/reviews/:id",
-  verifyUser,
-  async (req, res, next) => {
-    try {
-      await prisma.reviews.delete({
-        where: {
-          id: req.params.id,
-        },
-      });
+theoryRouter.delete("/reviews/:id", verifyUser, async (req, res, next) => {
+  try {
+    await prisma.reviews.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
 
-      res.sendStatus(204);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        error,
-        message: "Could not delete your review",
-      });
-    }
+    res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error,
+      message: "Could not delete your review",
+    });
   }
-);
+});
 module.exports = theoryRouter;

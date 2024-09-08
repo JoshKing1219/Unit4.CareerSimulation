@@ -25,51 +25,43 @@ reviewsRouter.post("/:id/comments", verifyUser, async (req, res, next) => {
   }
 });
 
-reviewsRouter.put(
-  "/:review_id/comments/:id",
-  verifyUser,
-  async (req, res, next) => {
-    try {
-      const updateComment = await prisma.comments.update({
-        where: {
-          id: req.params.id,
-        },
-        data: {
-          ...req.body,
-        },
-      });
+reviewsRouter.put("/comments/:id", verifyUser, async (req, res, next) => {
+  try {
+    const updateComment = await prisma.comments.update({
+      where: {
+        id: req.params.id,
+      },
+      data: {
+        ...req.body,
+      },
+    });
 
-      res.send(updateComment);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        error,
-        message: "Could not edit your comment",
-      });
-    }
+    res.send(updateComment);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error,
+      message: "Could not edit your comment",
+    });
   }
-);
+});
 
-reviewsRouter.delete(
-  "/:review_id/comments/:id",
-  verifyUser,
-  async (req, res, next) => {
-    try {
-      await prisma.comments.delete({
-        where: {
-          id: req.params.id,
-        },
-      });
+reviewsRouter.delete("/comments/:id", verifyUser, async (req, res, next) => {
+  try {
+    await prisma.comments.delete({
+      where: {
+        id: req.params.id,
+      },
+    });
 
-      res.sendStatus(204);
-    } catch (error) {
-      console.log(error);
-      res.status(500).send({
-        error,
-        message: "Could not delete your comment",
-      });
-    }
+    res.sendStatus(204);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      error,
+      message: "Could not delete your comment",
+    });
   }
-);
+});
 
 module.exports = reviewsRouter;

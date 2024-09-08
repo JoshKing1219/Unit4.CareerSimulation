@@ -75,7 +75,7 @@ authRouter.post("/login", async (req, res) => {
       process.env.JWT || "super duper secret"
     );
 
-    res.send({ token });
+    res.send({ token, user_id: user.id });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error, message: "Could not login the user." });
@@ -91,7 +91,11 @@ authRouter.get("/me", verifyUser, async (req, res) => {
         id: req.user_id,
       },
       include: {
-        reviews: true,
+        reviews: {
+          include: {
+            theory: true,
+          },
+        },
         comments: true,
       },
     });
