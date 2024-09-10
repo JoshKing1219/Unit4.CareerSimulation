@@ -22,6 +22,7 @@ model users {
   last_name  String?
   reviews    reviews[]
   comments   comments[]
+  replies    replies[]
 }
 
 model theory {
@@ -57,10 +58,20 @@ model reviews {
 }
 
 model comments {
-  id        String  @id @default(uuid())
+  id        String    @id @default(uuid())
   comment   String
   author_id String
-  author    users   @relation(fields: [author_id], references: [id])
+  author    users     @relation(fields: [author_id], references: [id])
   review_id String
-  review    reviews @relation(fields: [review_id], references: [id])
+  review    reviews   @relation(fields: [review_id], references: [id])
+  replies   replies[]
+}
+
+model replies {
+  id         String   @id @default(uuid())
+  reply      String
+  replier_id String
+  replier    users    @relation(fields: [replier_id], references: [id])
+  comment_id String
+  comment    comments @relation(fields: [comment_id], references: [id])
 }

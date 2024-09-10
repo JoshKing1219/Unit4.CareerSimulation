@@ -96,7 +96,26 @@ authRouter.get("/me", verifyUser, async (req, res) => {
             theory: true,
           },
         },
-        comments: true,
+        comments: {
+          include: {
+            review: {
+              include: {
+                theory: true,
+              },
+            },
+          },
+        },
+        replies: {
+          include: {
+            comment: {
+              include: {
+                review: {
+                  include: { theory: true },
+                },
+              },
+            },
+          },
+        },
       },
     });
     res.send(userInfo);
