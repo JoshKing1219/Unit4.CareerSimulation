@@ -25,7 +25,12 @@ theoryRouter.get("/:id", async (req, res, next) => {
       include: {
         reviews: {
           include: {
-            comments: { include: { replies: true, author: true } },
+            comments: {
+              include: {
+                replies: { include: { replier: true } },
+                author: true,
+              },
+            },
             user: true,
           },
         },
