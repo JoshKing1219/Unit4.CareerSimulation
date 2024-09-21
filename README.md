@@ -8,7 +8,7 @@ Below is the database schema and API documentation that we will refer to in orde
 ![alt text](Database-Schema.png)
 ![alt text](API-Documentation.png)
 
-Refer to the Project Repo included in the submission on Canvas to see the breakdown on the steps taken to build this API.
+Refer to the [Project Repo](https://github.com/users/JoshKing1219/projects/5) to see the breakdown on the steps taken to build this API.
 
 ## Instructions
 
