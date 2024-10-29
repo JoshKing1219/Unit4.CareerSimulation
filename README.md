@@ -10,6 +10,9 @@ Below is the database schema and API documentation that we will refer to in orde
 
 Refer to the [Project Repo](https://github.com/users/JoshKing1219/projects/5) to see the breakdown on the steps taken to build this API.
 
+## Steps to Run
+- npm run start:dev
+
 ## Instructions
 
 In this Career Simulation, Calliope asks you to create the back end of a review site for one of Fullstack Solutions' clients. After the back end has been completed, the client will review and provide feedback for improvement before starting the front end at a later time.
